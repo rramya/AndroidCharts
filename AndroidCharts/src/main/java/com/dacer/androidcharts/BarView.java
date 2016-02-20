@@ -27,12 +27,12 @@ public class BarView extends View {
     private int topMargin;
     private int bottomTextHeight;
     private ArrayList<String> bottomTextList = new ArrayList<String>();
-    private final int MINI_BAR_WIDTH;
+    private int MINI_BAR_WIDTH;
     private final int BAR_SIDE_MARGIN;
     private final int TEXT_TOP_MARGIN;
     private final int TEXT_COLOR = Color.parseColor("#9B9A9B");
     private final int BACKGROUND_COLOR = Color.parseColor("#F6F6F6");
-    public int FOREGROUND_COLOR = Color.parseColor("#F6F6F6");
+    public int FOREGROUND_COLOR;
 
     public int getFOREGROUND_COLOR() {
         return FOREGROUND_COLOR;
@@ -40,6 +40,8 @@ public class BarView extends View {
 
     public void setFOREGROUND_COLOR(int foreground_color) {
         this.FOREGROUND_COLOR = foreground_color;
+        fgPaint = new Paint(bgPaint);
+        fgPaint.setColor(FOREGROUND_COLOR);
     }
 
 
@@ -70,18 +72,24 @@ public class BarView extends View {
         this(context, null);
     }
 
+
+    public void setBarWidth(Context context, int barWidth) {
+        this.barWidth = MyUtils.dip2px(context, barWidth);
+        this.MINI_BAR_WIDTH = MyUtils.dip2px(context, barWidth);
+    }
+
+
     public BarView(Context context, AttributeSet attrs) {
         super(context, attrs);
         bgPaint = new Paint();
         bgPaint.setAntiAlias(true);
         bgPaint.setColor(BACKGROUND_COLOR);
-        fgPaint = new Paint(bgPaint);
-        fgPaint.setColor(FOREGROUND_COLOR);
+
         rect = new Rect();
         topMargin = MyUtils.dip2px(context, 5);
         int textSize = MyUtils.sp2px(context, 15);
-        barWidth = MyUtils.dip2px(context, 22);
-        MINI_BAR_WIDTH = MyUtils.dip2px(context, 22);
+        //barWidth = MyUtils.dip2px(context, 22);
+        //MINI_BAR_WIDTH = MyUtils.dip2px(context, 22);
         BAR_SIDE_MARGIN = MyUtils.dip2px(context, 22);
         TEXT_TOP_MARGIN = MyUtils.dip2px(context, 5);
         textPaint = new Paint();
