@@ -23,16 +23,24 @@ public class BarView extends View {
     private int barWidth;
     //    private boolean showSideMargin = true;
     private int bottomTextDescent;
-    private boolean autoSetWidth = true;
+    private boolean autoSetWidth;
     private int topMargin;
     private int bottomTextHeight;
     private ArrayList<String> bottomTextList = new ArrayList<String>();
     private int MINI_BAR_WIDTH;
     private final int BAR_SIDE_MARGIN;
     private final int TEXT_TOP_MARGIN;
-    private final int TEXT_COLOR = Color.parseColor("#9B9A9B");
-    private final int BACKGROUND_COLOR = Color.parseColor("#F6F6F6");
+    //private final int TEXT_COLOR = Color.parseColor("#9B9A9B");
+    private  int BACKGROUND_COLOR ;
     public int FOREGROUND_COLOR;
+
+    public boolean isAutoSetWidth() {
+        return autoSetWidth;
+    }
+
+    public void setAutoSetWidth(boolean autoSetWidth) {
+        this.autoSetWidth = autoSetWidth;
+    }
 
     public int getFOREGROUND_COLOR() {
         return FOREGROUND_COLOR;
@@ -44,6 +52,14 @@ public class BarView extends View {
         fgPaint.setColor(FOREGROUND_COLOR);
     }
 
+
+    public int getBACKGROUND_COLOR() {
+        return BACKGROUND_COLOR;
+    }
+
+    public void setBACKGROUND_COLOR(int BACKGROUND_COLOR) {
+        this.BACKGROUND_COLOR = BACKGROUND_COLOR;
+    }
 
     private Runnable animator = new Runnable() {
         @Override
@@ -87,17 +103,22 @@ public class BarView extends View {
 
         rect = new Rect();
         topMargin = MyUtils.dip2px(context, 5);
-        int textSize = MyUtils.sp2px(context, 15);
+        // int textSize = MyUtils.sp2px(context, 15);
         //barWidth = MyUtils.dip2px(context, 22);
         //MINI_BAR_WIDTH = MyUtils.dip2px(context, 22);
         BAR_SIDE_MARGIN = MyUtils.dip2px(context, 22);
         TEXT_TOP_MARGIN = MyUtils.dip2px(context, 5);
+
+        percentList = new ArrayList<Float>();
+    }
+
+    public void initTextPaint(Context context, int TEXT_COLOR, float textSize, Paint.Align align) {
         textPaint = new Paint();
         textPaint.setAntiAlias(true);
         textPaint.setColor(TEXT_COLOR);
-        textPaint.setTextSize(textSize);
-        textPaint.setTextAlign(Paint.Align.CENTER);
-        percentList = new ArrayList<Float>();
+        textPaint.setTextSize(MyUtils.sp2px(context, textSize));
+        textPaint.setTextAlign(align);
+
     }
 
     /**
